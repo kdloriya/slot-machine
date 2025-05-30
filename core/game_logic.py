@@ -6,12 +6,21 @@ from utils.validators import get_bet, bet_validator, check_winnings
 # Returns the cyliners with the random symbols, 
 # which will be displayed once the user spins the slot.
 def get_slot_machine_spin(rows, cols, symbols):
-    # Gives the list which contains all the symbols with their repetition.
+    
     all_symbols = []
+    """
+    For each available symbol, we will add that symbol mentioned number of times to the all_symbols list.
+    For example, if we have symbols = {"A": 2, "B": 4}, then all_symbols will be ["A", "A", "B", "B", "B", "B"].
+    """
     for symbol, count in symbols.items():
         all_symbols.extend([symbol] * count)
 
-    # Creates the slot machine cylinders with random symbols.
+    """
+    For available number of columns, we will create a list of lists (columns).
+    Each column will contain a list of randomly selected symbols from all_symbols.
+    When the symbol is selected, the same symbol will also be removed from the current_symbols list.
+    When the list of symbol reaches the required number of rows, we will add that to the columns list.
+    """
     columns = []
     for _ in range(cols):
         current_symbols = all_symbols[:]
@@ -28,6 +37,11 @@ def get_slot_machine_spin(rows, cols, symbols):
 def deposit():
     while True:
         amount = input("What would you like to deposit? $")
+        
+        """
+        Check if the input is a digit and convert it to an integer
+        If the input is not a digit, it will prompt the user to enter a valid amount
+        """
         if amount.isdigit():
             amount = int(amount)
             if amount > 0:
